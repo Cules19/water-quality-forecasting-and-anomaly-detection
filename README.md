@@ -19,6 +19,11 @@ for residual-tail evaluation and controlled non-event training only.
 
 ## Start here
 
+On a new computer, give Codex
+[the other-device start file](documentation/START_HERE_OTHER_DEVICE.md) first.
+It instructs Codex to inspect the machine and data and recommend the next valid
+step before any heavy processing.
+
 Read [the cross-device execution plan](documentation/ph_cross_device_full_pipeline_plan_v1.md)
 before running the scripts. It defines the cohort rules, leakage controls,
 chronological splits, metadata construction, HGB and sequence experiments,
