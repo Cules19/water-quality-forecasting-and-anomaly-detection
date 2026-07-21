@@ -17,6 +17,52 @@ Historical pH and regulatory event labels are deliberately excluded from the
 main predictors. Regulatory low/high pH windows are incomplete weak labels used
 for residual-tail evaluation and controlled non-event training only.
 
+## Results preview
+
+The figures below are selected previews from the completed analyses. Values are
+in processed pH space; they must not be interpreted directly as native pH units.
+
+### Contrasting monitored sites
+
+Observed processed pH is shown against the HGB200 V2 and non-event GRU
+predictions. Blue shading marks regulatory low-pH weak-label windows. The four
+sites illustrate substantial differences in event persistence, flashiness and
+model fit.
+
+![Contrasting monitored-site event examples](documentation/preview/four_site_event_examples.png)
+
+### Hydrological metadata and prediction
+
+For the strict 200-site HGB experiment, adding the full metadata set reduced
+test RMSE from `0.017215` to `0.016119` and increased test R-squared from
+`0.7869` to `0.8132`. Compact V2 metadata retained almost all of this prediction
+benefit (`RMSE = 0.016159`, `R-squared = 0.8123`) with a smaller and more
+interpretable feature set.
+
+![HGB200 metadata prediction comparison](documentation/preview/hgb200_metadata_prediction.png)
+
+### Controlled non-event GRU training
+
+Excluding weak-label event target rows from GRU training improved test RMSE
+from `0.017130` to `0.016741` and increased low-pH enrichment in the negative
+5% residual tail from `2.52` to `4.87`.
+
+<p align="center">
+  <img src="documentation/preview/nonevent_low_tail_enrichment.png" alt="Non-event GRU low-pH negative-tail enrichment" width="720">
+</p>
+
+### Direction-specific residual behaviour
+
+Low-pH events were consistently enriched in negative residual tails, whereas
+high-pH positive-tail enrichment was weaker and model-dependent. This
+asymmetry is a substantive result rather than evidence that every large
+residual is an environmental event.
+
+![Signed residual-tail model summary](documentation/preview/signed_tail_model_summary.png)
+
+These event windows are incomplete regulatory weak labels. Prediction accuracy
+and event-tail enrichment are reported as separate outcome families.
+
 ## Start here
 
 On a new computer, give Codex

@@ -250,6 +250,10 @@ analysis_outputs/
 *.xlsx
 *.xls
 
+# Curated, lightweight figures displayed in the GitHub project preview.
+!documentation/preview/
+!documentation/preview/*.png
+
 # Local installers and machine-specific caches
 LibreOffice_*/
 .cache/
