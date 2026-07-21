@@ -3,6 +3,10 @@
 The numbered directories follow the current analysis logic. Generated files
 are written to `analysis_outputs/`, keeping source code separate from results.
 
+`00_baseline/` contains the six-step Full50 baseline ladder from simple site and
+seasonal means through persistence, Ridge, HGB, residual validation and
+non-event training. Its own README explains the important pH-history boundary.
+
 | Stage | Script | Purpose |
 | --- | --- | --- |
 | 01 | `01_inventory/run_processed_metadata_availability_check.py` | Lightweight processed-file, schema and registry audit |

@@ -151,7 +151,7 @@ Report:
 - repository root;
 - current Git branch and commit;
 - whether the working tree is clean;
-- presence of all 10 numbered pipeline stages;
+- presence of the baseline chain and all 10 numbered current pipeline stages;
 - presence of the main plan and V2 metadata definition.
 
 Do not modify the curated scripts during this first inspection.
@@ -360,4 +360,3 @@ be treated as complete.
 > evidence-based report of what is present, what is missing, how many sites are
 > strictly eligible, whether more sites can be added without changing the
 > experiment, and the exact next action you recommend.
-

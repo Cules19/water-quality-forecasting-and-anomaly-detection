@@ -886,6 +886,13 @@ The large-site run is complete only when all applicable checks pass:
 Use these as behavioural references, not as hard-coded path dependencies:
 
 ```text
+pipeline/00_baseline/README.md
+pipeline/00_baseline/01_build_baseline_dataset.py
+pipeline/00_baseline/02_prepare_baseline_ready.py
+pipeline/00_baseline/03_clean_baseline_v3.py
+pipeline/00_baseline/04_train_full50_baselines_v3.py
+pipeline/00_baseline/05_validate_residual_events_v3.py
+pipeline/00_baseline/06_train_nonevent_baselines_v3.py
 pipeline/02_hgb200/run_processed200_hgb_metadata_experiment.py
 pipeline/03_processed100/run_processed100_step4_0_4_1.py
 pipeline/04_sequence_gru/run_sequence100_gru_lstm_metadata.py

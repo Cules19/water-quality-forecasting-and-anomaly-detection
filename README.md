@@ -22,6 +22,16 @@ for residual-tail evaluation and controlled non-event training only.
 The figures below are selected previews from the completed analyses. Values are
 in processed pH space; they must not be interpreted directly as native pH units.
 
+### Baseline ladder
+
+The Full50 benchmark compared a site mean (M0), seasonal mean (M1), 1-hour pH
+persistence (M2), Ridge regression (M3) and exogenous HGB (M4). Persistence had
+the lowest forecasting RMSE because it uses previous pH; it is retained only as
+a forecasting benchmark and is excluded from the primary exogenous-residual
+interpretation.
+
+![Full50 baseline test RMSE](documentation/preview/full50_baseline_test_rmse.png)
+
 ### Contrasting monitored sites
 
 Observed processed pH is shown against the HGB200 V2 and non-event GRU
@@ -78,15 +88,16 @@ signed residual analysis, and acceptance checks.
 ## Repository layout
 
 ```text
-pipeline/                Ten curated stages in execution order
+pipeline/                Baseline chain plus ten current stages
 config/                  Compact V2 metadata definition
 documentation/           Full cross-device execution and validation plan
 analysis_outputs/        Generated locally when scripts run; never versioned
 ```
 
 Only the latest scripts that contributed to the current modelling conclusions
-are included. Superseded development versions, duplicated reruns, 50-site
-prototype scripts, report generators, and figure-only utilities are excluded.
+are included. Superseded development versions, duplicated reruns, report
+generators, and figure-only utilities are excluded. The useful Full50 baseline
+ladder is retained separately under `pipeline/00_baseline/`.
 See [the pipeline index](pipeline/README.md) for the purpose and dependencies of
 each retained stage.
 
