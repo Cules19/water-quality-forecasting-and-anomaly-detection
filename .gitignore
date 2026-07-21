@@ -216,3 +216,40 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# pH project data and generated artefacts
+data/
+outputs/
+logs/
+checkpoints/
+data_review_outputs/
+dissertation_plan_outputs/
+
+# Historical local copies and all generated analysis outputs are not versioned.
+scripts/
+analysis_outputs/
+
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.joblib
+*.pkl
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+*.docx
+*.xlsx
+*.xls
+
+# Local installers and machine-specific caches
+LibreOffice_*/
+.cache/
