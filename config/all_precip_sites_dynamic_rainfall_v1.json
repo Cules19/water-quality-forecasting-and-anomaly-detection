@@ -1,0 +1,16 @@
+{
+  "name": "all_precip_sites_dynamic_rainfall_v1",
+  "teacher_archive_processing_report": "analysis_outputs/all_precip_sites_teacher_archive_v1/full/reports/processing_qa_by_site.csv",
+  "output_root": "analysis_outputs/all_precip_sites_dynamic_rainfall_v1",
+  "expected_sites": 1750,
+  "workers": 4,
+  "parquet_compression": "zstd",
+  "rainfall_column": "00045",
+  "rainfall_unit": "mm/hour",
+  "timezone_assumption": "UTC",
+  "missing_semantics": {
+    "zero": "observed zero rainfall",
+    "null": "rainfall unavailable",
+    "missing_flag": "1 when rainfall is unavailable; 0 when observed"
+  }
+}

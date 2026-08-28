@@ -1,0 +1,107 @@
+{
+  "run_id": "ph_common1000_processed_v1",
+  "random_seed": 42,
+  "target_code": "00400",
+  "predictor_codes": [
+    "00010",
+    "00095",
+    "00300",
+    "63680"
+  ],
+  "candidate_manifest": "analysis_outputs/ph_common1000_step1_v1/candidate_sites_1200.csv",
+  "registry_path": "data/reference/sites_register.json",
+  "events_path": "data/reference/regulatory_events.csv",
+  "output_dir": "analysis_outputs/ph_common1000_processed_v1",
+  "max_interpolation_gap_hours": 6.0,
+  "split_fractions": [
+    0.7,
+    0.15,
+    0.15
+  ],
+  "default_workers": 4,
+  "quality_tiers": {
+    "primary_strict": {
+      "minimum_coverage_days": 30.0,
+      "minimum_usable_rows": 1000,
+      "minimum_usable_fraction": 0.1,
+      "minimum_train_rows": 700,
+      "minimum_validation_rows": 150,
+      "minimum_test_rows": 150
+    },
+    "extended_30d": {
+      "minimum_coverage_days": 30.0,
+      "minimum_usable_rows": 300
+    }
+  },
+  "hard_ranges": {
+    "00400": [
+      0.0,
+      14.0
+    ],
+    "00010": [
+      -5.0,
+      50.0
+    ],
+    "00095": [
+      0.0,
+      null
+    ],
+    "00300_mg_l": [
+      0.0,
+      20.0
+    ],
+    "00300_ea_percent_saturation_like": [
+      0.0,
+      200.0
+    ],
+    "63680": [
+      0.0,
+      null
+    ]
+  },
+  "soft_high_flags": {
+    "00095": 100000.0,
+    "63680": 1000.0
+  },
+  "fixed_minmax_bounds": {
+    "00400": [
+      0.0,
+      14.0
+    ],
+    "00010": [
+      -5.0,
+      50.0
+    ],
+    "00300_mg_l": [
+      0.0,
+      20.0
+    ],
+    "00300_ea_percent_saturation_like": [
+      0.0,
+      200.0
+    ],
+    "63680": [
+      0.0,
+      1000.0
+    ]
+  },
+  "qc_semantics": {
+    "pass_value": 0.0,
+    "fail_value": 1.0,
+    "unknown_values_are_excluded_from_model_ready": true
+  },
+  "events": {
+    "parameter_exact": "pH (00400)",
+    "allowed_labels": [
+      "pH_exceedance_low",
+      "pH_exceedance_high"
+    ],
+    "fields_are_predictors": false
+  },
+  "output": {
+    "parquet_compression": "zstd",
+    "write_native_clean": true,
+    "write_model_ready": true,
+    "hash_source_files": true
+  }
+}

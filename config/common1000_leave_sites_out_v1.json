@@ -1,0 +1,55 @@
+{
+  "name": "common1000_leave_sites_out_v1",
+  "native_clean_root": "analysis_outputs/ph_common1000_processed_v1/native_clean_by_site",
+  "cohort_path": "analysis_outputs/ph_common1000_sequence_v1/full/reports/cohort.csv",
+  "events_path": "data/reference/regulatory_events.csv",
+  "output_root": "analysis_outputs/ph_common1000_leave_sites_out_v1",
+  "random_seed": 42,
+  "site_split_fractions": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "sequence_length_hours": 24,
+  "forecast_horizons_hours": [1, 3, 6, 12, 24, 48],
+  "causal_fill_limit_hours": 6,
+  "maximum_dynamic_missing_fraction_per_window": 0.5,
+  "minimum_target_hours": 300,
+  "minimum_coverage_days": 30,
+  "smoke_sites_per_network": 9,
+  "targets": {
+    "ph": {
+      "target_code": "00400",
+      "target_name": "pH",
+      "target_unit": "pH",
+      "dynamic_codes": ["00010", "00095", "00300", "63680"],
+      "allowed_do_unit_families": ["ea_percent_saturation_like_unverified", "reported_mg_l"],
+      "event_parameter_exact": "pH (00400)"
+    },
+    "do": {
+      "target_code": "00300",
+      "target_name": "dissolved_oxygen",
+      "target_unit": "mg/L",
+      "dynamic_codes": ["00010", "00095", "00400", "63680"],
+      "allowed_do_unit_families": ["reported_mg_l"],
+      "event_parameter_exact": "Dissolved Oxygen (00300)"
+    }
+  },
+  "fixed_dynamic_transforms": {
+    "00010": "identity",
+    "00095": "log1p_nonnegative",
+    "00300": "unit_family_safe_do",
+    "00400": "identity",
+    "63680": "log1p_nonnegative"
+  },
+  "forbidden_predictors": [
+    "site_id",
+    "site_embedding",
+    "target_future",
+    "event",
+    "residual",
+    "prediction",
+    "validation_target",
+    "test_target"
+  ]
+}

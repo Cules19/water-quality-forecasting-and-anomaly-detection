@@ -1,0 +1,52 @@
+{
+  "base_config": "config/common1000_lstm_film_final_rain_ablation_teacher_aligned_v1.json",
+  "name": "common1000_lstm_film_ph_sensor_ablation_v1",
+  "output_root": "analysis_outputs/ph_common1000_lstm_film_ph_sensor_ablation_v1",
+  "include_target_history": false,
+  "include_do_source_family_indicator": false,
+  "base_dynamic_codes": [
+    "00010",
+    "00095",
+    "63680"
+  ],
+  "models": [
+    {
+      "model_id": "PH_FULL_SENSORS",
+      "run_id": "ph_LSTM_FULL_SENSORS_H01",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    },
+    {
+      "model_id": "PH_LOW_COST",
+      "run_id": "ph_LSTM_LOW_COST_H01",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_63680",
+        "rain_00045"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    }
+  ],
+  "sensor_ablation": {
+    "shared_inputs": [
+      "water_temperature_00010",
+      "specific_conductance_00095",
+      "turbidity_63680",
+      "hourly_rainfall_00045"
+    ],
+    "full_only_input": "dissolved_oxygen_00300",
+    "target_history_used": false,
+    "purpose": "Paired full-sensor versus deployable low-cost pH comparison."
+  }
+}

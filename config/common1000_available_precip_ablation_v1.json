@@ -1,0 +1,24 @@
+{
+  "name": "common1000_available_precip_ablation_v1",
+  "prepared_root": "analysis_outputs/ph_common1000_leave_sites_out_v1/full",
+  "preparation_config": "config/common1000_leave_sites_out_v1.json",
+  "cohort_path": "analysis_outputs/ph_common1000_sequence_v1/full/reports/cohort.csv",
+  "output_root": "analysis_outputs/ph_common1000_available_precip_ablation_v1",
+  "random_seed": 42,
+  "horizon_hours": 1,
+  "train_cap_per_site": 5000,
+  "flow_causal_fill_hours": 6,
+  "ridge_alphas": [0.1, 1.0, 10.0],
+  "hgb": {
+    "max_iter": 200,
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 31,
+    "random_state": 42
+  },
+  "feature_sets": {
+    "core": [],
+    "core_plus_precipitation": ["00045"],
+    "core_plus_flow": ["00060"],
+    "core_plus_flow_precipitation": ["00045", "00060"]
+  }
+}

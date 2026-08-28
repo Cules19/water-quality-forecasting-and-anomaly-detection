@@ -1,0 +1,82 @@
+{
+  "base_config": "config/common1000_lstm_film_final_rain_ablation_teacher_aligned_v1.json",
+  "name": "common1000_lstm_film_do_sensor_ablation_v1",
+  "target": "do",
+  "target_code": "00300",
+  "target_source_column": "x_00300",
+  "target_observed_column": "x_00300_observed_hour",
+  "target_source_multiplier": 20.0,
+  "target_unit": "mg/L",
+  "output_root": "analysis_outputs/do_common1000_lstm_film_sensor_ablation_mg_l_v1",
+  "include_target_history": false,
+  "include_do_source_family_indicator": false,
+  "evaluate_event_diagnostics": false,
+  "base_dynamic_codes": [
+    "00010",
+    "00095",
+    "63680"
+  ],
+  "feature_definitions": {
+    "x_00010": {
+      "source_column": "x_00010",
+      "transform": "identity"
+    },
+    "x_00095": {
+      "source_column": "x_00095",
+      "transform": "identity"
+    },
+    "x_63680": {
+      "source_column": "x_63680",
+      "transform": "identity"
+    },
+    "x_00400": {
+      "source_column": "target_00400_native",
+      "transform": "identity"
+    },
+    "rain_00045": {
+      "source_column": "00045",
+      "transform": "log1p_nonnegative"
+    }
+  },
+  "models": [
+    {
+      "model_id": "DO_FULL_SENSORS",
+      "run_id": "do_LSTM_FULL_SENSORS_H01",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_63680",
+        "x_00400",
+        "rain_00045"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    },
+    {
+      "model_id": "DO_LOW_COST",
+      "run_id": "do_LSTM_LOW_COST_H01",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_63680",
+        "rain_00045"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    }
+  ],
+  "sensor_ablation": {
+    "shared_inputs": [
+      "water_temperature_00010",
+      "specific_conductance_00095",
+      "turbidity_63680",
+      "hourly_rainfall_00045"
+    ],
+    "full_only_input": "ph_00400",
+    "target_history_used": false,
+    "target_observation_rule": "Only x_00300_observed_hour=true rows are labels; causally filled DO values are never labels. x_00300 is restored from the preparation-layer do_mg_l_div20 transform by multiplying by 20.",
+    "purpose": "Paired full-sensor versus deployable low-cost DO comparison."
+  }
+}

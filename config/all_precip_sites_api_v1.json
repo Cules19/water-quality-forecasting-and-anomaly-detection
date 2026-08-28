@@ -1,0 +1,35 @@
+{
+  "name": "all_precip_sites_api_v1",
+  "rainfall_alignment_report": "analysis_outputs/all_precip_sites_dynamic_rainfall_v1/full/reports/alignment_qa_by_site.csv",
+  "output_root": "analysis_outputs/all_precip_sites_api_v1",
+  "expected_primary_sites": 1750,
+  "workers": 4,
+  "parquet_compression": "zstd",
+  "rainfall_column": "00045",
+  "rainfall_unit": "mm/hour",
+  "timezone_assumption": "UTC",
+  "api_definition": "API_t = P_t + alpha * API_(t-1)",
+  "decay_definition": "alpha = 0.5 ** (1 / half_life_hours)",
+  "warmup_half_lives": 5.0,
+  "minimum_valid_hours_for_experiment": 720,
+  "api_variants": [
+    {
+      "name": "api_24h",
+      "half_life_hours": 24
+    },
+    {
+      "name": "api_72h",
+      "half_life_hours": 72
+    },
+    {
+      "name": "api_168h",
+      "half_life_hours": 168
+    }
+  ],
+  "missing_semantics": {
+    "zero_rainfall": "observed no-rain hour; API decays normally",
+    "missing_rainfall": "API is unavailable and a new observed segment must warm up",
+    "warmup": "API value is withheld for five half-lives after a segment begins",
+    "outside_source_period": "API remains null"
+  }
+}

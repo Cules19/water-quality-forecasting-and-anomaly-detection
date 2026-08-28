@@ -1,0 +1,46 @@
+{
+  "name": "common1000_site_analysis_v1",
+  "cohort_path": "analysis_outputs/ph_common1000_hgb_v1/full/reports/cohort.csv",
+  "candidate_manifest": "analysis_outputs/ph_common1000_step1_v1/candidate_sites_1200.csv",
+  "registry_path": "C:/Users/xg625/Downloads/sites_register.json",
+  "stage11_metadata_path": "analysis_outputs/ph_common1000_hgb_v1/full/reports/metadata_raw.csv",
+  "model_ready_dir": "analysis_outputs/ph_common1000_processed_v1/model_ready_by_site",
+  "output_root": "analysis_outputs/ph_common1000_site_analysis_v1",
+  "top_fraction": 0.05,
+  "minimum_daily_flow_days": 30,
+  "minimum_event_rows_for_reliable_enrichment": 10,
+  "predictor_window_days": 21,
+  "random_seed": 42,
+  "performance_models": [
+    {
+      "model_id": "GRU_FILM_V2_N1009",
+      "label": "GRU-FiLM all-data",
+      "prediction_path": "analysis_outputs/ph_common1000_film_scaling_v1/predictions/prediction_test_GRU_FILM_V2_N1009.parquet",
+      "primary_accuracy": true
+    },
+    {
+      "model_id": "GRU_FILM_V2_N1009_NONEVENT",
+      "label": "GRU-FiLM non-event",
+      "prediction_path": "analysis_outputs/ph_common1000_film_scaling_v1/predictions/prediction_test_GRU_FILM_V2_N1009_NONEVENT.parquet",
+      "primary_event": true
+    },
+    {
+      "model_id": "GRU_S1_N1009_NONEVENT",
+      "label": "GRU full-metadata non-event",
+      "prediction_path": "analysis_outputs/ph_common1000_gru_fullmeta_nonevent_v1/predictions/prediction_test_GRU_S1_N1009_NONEVENT.parquet",
+      "visualise": true
+    },
+    {
+      "model_id": "LSTM_S1",
+      "label": "LSTM full metadata",
+      "prediction_path": "analysis_outputs/ph_common1000_sequence_v1/full/predictions/prediction_test_LSTM_S1.parquet",
+      "visualise": true
+    },
+    {
+      "model_id": "B4_H1_hgb_metadata",
+      "label": "HGB metadata",
+      "prediction_path": "analysis_outputs/ph_common1000_baseline_v1/full/predictions/prediction_test_B4_H1_hgb_metadata.parquet",
+      "visualise": true
+    }
+  ]
+}

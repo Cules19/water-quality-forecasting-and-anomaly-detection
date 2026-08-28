@@ -1,0 +1,22 @@
+{
+  "name": "all_precip_sites_teacher_archive_v1",
+  "site_inventory_path": "analysis_outputs/ph_common1000_precipitation_audit_v1/precipitation_site_inventory.csv",
+  "output_root": "analysis_outputs/all_precip_sites_teacher_archive_v1",
+  "expected_unique_sites": 1750,
+  "workers": 4,
+  "parquet_compression": "zstd",
+  "timestamp_column": "TIMESTAMP",
+  "rainfall_input_column": "precip_mm",
+  "rainfall_model_column": "00045",
+  "rainfall_unit": "mm/hour",
+  "timezone": "UTC",
+  "api_output_column": "precip_api",
+  "api_halflife_hours": 48.0,
+  "api_formula": "pandas Series.ewm(halflife=48, adjust=False).mean()",
+  "rolling_output_column": "precip_6h",
+  "rolling_window_hours": 6,
+  "rolling_formula": "pandas Series.rolling(6, min_periods=1).sum()",
+  "missing_rainfall_fill_value": 0.0,
+  "canonical_selection_rule": "latest export timestamp embedded in filename",
+  "teacher_archive_source": "data/Archive/data_and_metadata_snippets.py:add_precip_channels"
+}

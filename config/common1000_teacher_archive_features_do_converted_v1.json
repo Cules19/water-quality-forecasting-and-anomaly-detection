@@ -1,0 +1,33 @@
+{
+  "name": "common1000_teacher_archive_features_do_converted_v1",
+  "cohort_match_path": "analysis_outputs/ph_common1000_precipitation_audit_v1/common1000_precipitation_match.csv",
+  "site_split_path": "analysis_outputs/ph_common1000_leave_sites_out_do_converted_v1/full/reports/site_split_ph.csv",
+  "prepared_ph_root": "analysis_outputs/ph_common1000_leave_sites_out_do_converted_v1/full/hourly_native_by_site/ph",
+  "teacher_archive_feature_root": "analysis_outputs/all_precip_sites_teacher_archive_v1/full/hourly_precip_features_by_site",
+  "output_root": "analysis_outputs/ph_common1000_teacher_archive_features_do_converted_v1",
+  "expected_ph_sites": 1009,
+  "expected_primary_archive_sites": 910,
+  "expected_supplemental_existing_00045_sites": 66,
+  "expected_extended_sites": 976,
+  "expected_excluded_sites": 33,
+  "workers": 4,
+  "parquet_compression": "zstd",
+  "timezone_assumption": "UTC",
+  "rainfall_unit": "mm/hour",
+  "teacher_archive_api_halflife_hours": 48.0,
+  "teacher_archive_rolling_window_hours": 6,
+  "teacher_archive_api_formula": "pandas Series.ewm(halflife=48, adjust=False).mean()",
+  "teacher_archive_rolling_formula": "pandas Series.rolling(6, min_periods=1).sum()",
+  "legacy_existing_00045_native_unit": "inch/hour observations",
+  "legacy_existing_00045_hourly_aggregation": "sum",
+  "legacy_existing_00045_mm_per_inch": 25.4,
+  "minimum_feature_overlap_hours": 720,
+  "minimum_overlap_days": 30.0,
+  "primary_cohort_rule": "direct canonical precipitation archive match passing the completed 30-day/80-percent audit",
+  "extended_cohort_rule": "primary cohort plus varying local USGS 00045, aggregated hourly and converted from inches to millimetres",
+  "missing_semantics": {
+    "teacher_archive_internal_gap": "rainfall input is filled with zero exactly as in add_precip_channels and the observed-hour flag remains false",
+    "outside_source_period": "rainfall and derived features remain null",
+    "model_use": "always retain the rainfall missingness flag"
+  }
+}

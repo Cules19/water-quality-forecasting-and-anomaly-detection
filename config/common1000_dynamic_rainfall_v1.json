@@ -1,0 +1,22 @@
+{
+  "name": "common1000_dynamic_rainfall_v1",
+  "audit_match_path": "analysis_outputs/ph_common1000_precipitation_audit_v1/common1000_precipitation_match.csv",
+  "prepared_root": "analysis_outputs/ph_common1000_leave_sites_out_v1/full",
+  "target_name": "ph",
+  "site_split_path": "analysis_outputs/ph_common1000_leave_sites_out_v1/full/reports/site_split_ph.csv",
+  "output_root": "analysis_outputs/ph_common1000_dynamic_rainfall_v1",
+  "expected_primary_sites": 910,
+  "workers": 4,
+  "parquet_compression": "zstd",
+  "rainfall_column": "00045",
+  "rainfall_unit": "mm/hour",
+  "timezone_assumption": "UTC",
+  "minimum_overlap_days": 30.0,
+  "minimum_overlap_nonmissing_coverage": 0.8,
+  "canonical_selection_rule": "latest export timestamp embedded in filename",
+  "missing_semantics": {
+    "zero": "observed zero rainfall",
+    "null": "rainfall unavailable",
+    "missing_flag": "1 when rainfall is unavailable; 0 when observed"
+  }
+}

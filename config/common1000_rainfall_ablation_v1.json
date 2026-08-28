@@ -1,0 +1,152 @@
+{
+  "name": "common1000_rainfall_ablation_v1",
+  "merged_input_root": "analysis_outputs/ph_common1000_teacher_archive_features_v1/full/hourly_ph_rainfall_by_site",
+  "primary_cohort_path": "analysis_outputs/ph_common1000_teacher_archive_features_v1/full/reports/primary_archive_experiment_cohort.csv",
+  "preparation_config": "config/common1000_leave_sites_out_v1.json",
+  "metadata_input": "analysis_outputs/ph_common1000_hgb_v1/full/reports/metadata_model_ready.csv",
+  "flow_metadata_input": "analysis_outputs/ph_common1000_site_analysis_v1/reports/site_flow_metrics.csv",
+  "output_root": "analysis_outputs/ph_common1000_rainfall_ablation_v1",
+  "random_seed": 42,
+  "target": "ph",
+  "target_code": "00400",
+  "horizon_hours": 1,
+  "sequence_length_hours": 24,
+  "maximum_dynamic_missing_fraction_per_window": 0.5,
+  "require_precipitation_for_every_input_hour": true,
+  "hidden_size": 64,
+  "film_hidden_size": 64,
+  "head_hidden_size": 32,
+  "dropout": 0.1,
+  "learning_rate": 0.001,
+  "weight_decay": 0.00001,
+  "early_stopping_patience": 2,
+  "target_history_fill_limit_hours": 6,
+  "smoke_sites_per_split": {
+    "train": 12,
+    "validation": 6,
+    "test": 6
+  },
+  "smoke": {
+    "maximum_epochs": 2,
+    "train_window_cap_per_site": 300,
+    "validation_window_cap_per_site": 150,
+    "train_batch_size": 4096,
+    "prediction_batch_size": 8192
+  },
+  "full": {
+    "maximum_epochs": 6,
+    "train_window_cap_per_site": 2500,
+    "validation_window_cap_per_site": 500,
+    "train_batch_size": 8192,
+    "prediction_batch_size": 16384
+  },
+  "base_dynamic_codes": [
+    "00010",
+    "00095",
+    "00300",
+    "63680"
+  ],
+  "feature_definitions": {
+    "x_00010": {
+      "source_column": "x_00010",
+      "transform": "identity"
+    },
+    "x_00095": {
+      "source_column": "x_00095",
+      "transform": "identity"
+    },
+    "x_00300": {
+      "source_column": "x_00300",
+      "transform": "identity"
+    },
+    "x_63680": {
+      "source_column": "x_63680",
+      "transform": "identity"
+    },
+    "rain_00045": {
+      "source_column": "00045",
+      "transform": "log1p_nonnegative"
+    },
+    "precip_api": {
+      "source_column": "precip_api",
+      "transform": "log1p_nonnegative"
+    },
+    "precip_6h": {
+      "source_column": "precip_6h",
+      "transform": "log1p_nonnegative"
+    }
+  },
+  "models": [
+    {
+      "model_id": "BASE_NONEVENT",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680"
+      ]
+    },
+    {
+      "model_id": "RAIN_NONEVENT",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ]
+    },
+    {
+      "model_id": "RAIN_API_NONEVENT",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045",
+        "precip_api",
+        "precip_6h"
+      ]
+    }
+  ],
+  "metadata_fields": [
+    "meta_latitude",
+    "meta_longitude",
+    "meta_elevation",
+    "meta_drainage_area_km2",
+    "meta_average_precip_mm_yr",
+    "meta_average_evapo_trans_mm_yr",
+    "meta_population_est_2020",
+    "meta_watershed_dams_no",
+    "meta_watershed_dams_cap_m3",
+    "meta_irrigation_area_km2",
+    "meta_irrigation_area_pct",
+    "meta_dominant_land_cover_pct",
+    "log10_mean_flow",
+    "flow_cv",
+    "richards_baker_flashiness",
+    "q95_q50_ratio"
+  ],
+  "metadata_log1p_fields": [
+    "meta_drainage_area_km2",
+    "meta_population_est_2020",
+    "meta_watershed_dams_no",
+    "meta_watershed_dams_cap_m3",
+    "meta_irrigation_area_km2"
+  ],
+  "coordinate_fields": [
+    "meta_latitude",
+    "meta_longitude"
+  ],
+  "forbidden_predictors": [
+    "site_id",
+    "site_embedding",
+    "in_event",
+    "event_label",
+    "event_direction",
+    "event_id",
+    "future_target",
+    "residual",
+    "prediction"
+  ]
+}

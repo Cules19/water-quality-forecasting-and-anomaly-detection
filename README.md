@@ -1,133 +1,50 @@
-# pH Hot-Moment Modelling
+# Pollution_ID: Cross-site Water-Quality Forecasting
 
-Code-only repository for multi-site prediction-based detection of pH hot
-moments from high-frequency water-quality sensor data and hydrological
-metadata.
+This repository is the curated, audited code snapshot for a multi-network water-quality forecasting project spanning Great Britain and the United States. It focuses on pH and dissolved oxygen, unseen-site transfer, low-cost deployment, calibration, and pollution-relevant residual “hot moments”.
 
-The primary models predict processed pH (`00400`) from exogenous variables:
+The repository intentionally contains **source code, configuration, compact documentation, and publication figures only**. Raw monitoring data, geospatial rasters, model checkpoints, and generated predictions are stored separately because the complete local evidence base exceeds 100 GB and includes sources that must not be redistributed.
 
-- water temperature (`00010`)
-- specific conductance (`00095`)
-- turbidity (`63680`)
-- discharge (`00060`)
-- gage height (`00065`)
-- calendar and cyclical time features
+## What the project does
 
-Historical pH and regulatory event labels are deliberately excluded from the
-main predictors. Regulatory low/high pH windows are incomplete weak labels used
-for residual-tail evaluation and controlled non-event training only.
+- Harmonises hourly observations across 910 sites: 638 training, 137 validation, and 135 held-out test sites.
+- Builds causal 48-hour sequence inputs from water-quality covariates, rainfall, and calendar features.
+- Compares HGB, GRU, LSTM, and LSTM-FiLM models under matched splits.
+- Tests a no-history horizon-0 pH model (`H00`) that excludes historical pH.
+- Evaluates one-hour historical-target forecasting (`H01`), low-cost sensor subsets, site warm-up, and conformal uncertainty.
+- Audits static site context (geology, baseflow tendency, imperviousness, and permitted-discharge proximity), solar context, upstream catchment context, and official flow/stage availability.
+- Separates promoted results from negative or under-supported experiments.
 
-## Results preview
+## Main audited findings
 
-The figures below are selected previews from the completed analyses. Values are
-in processed pH space; they must not be interpreted directly as native pH units.
+The frozen no-history H00 benchmark had useful pooled held-out skill (RMSE 0.406864; NSE 0.512871) but inconsistent site transfer. A preregistered 30-day site offset calibration was promoted: on its strict held-out comparison it reduced pooled RMSE from 0.412487 to 0.377248 and macro-site MAE from 0.242124 to 0.180789. The cross-variable hot-moment hypothesis received partial support, not a universal positive conclusion. Static, solar, upstream, flow, and stage extensions are retained only at the evidential level each audit supports.
 
-### Baseline ladder
+## Repository map
 
-The Full50 benchmark compared a site mean (M0), seasonal mean (M1), 1-hour pH
-persistence (M2), Ridge regression (M3) and exogenous HGB (M4). Persistence had
-the lowest forecasting RMSE because it uses previous pH; it is retained only as
-a forecasting benchmark and is excluded from the primary exogenous-residual
-interpretation.
+| Path | Purpose |
+|---|---|
+| [`pipeline/`](pipeline/) | Ordered processing, modelling, calibration, transfer, and audit stages |
+| [`models/lstm_film/`](models/lstm_film/) | Reusable LSTM-FiLM implementation |
+| [`core/`](core/) | Download, standardisation, station, registry, and event utilities |
+| [`config/`](config/) | Versioned experiment configurations |
+| [`analysis/`](analysis/) | Final frozen-output analyses and supervisor checks |
+| [`tools/solar_context/`](tools/solar_context/) | Solar-position feature generation and validation |
+| [`scripts/`](scripts/) | Data acquisition, merging, regulatory-event, and figure entry points |
+| [`figures/methodology/`](figures/methodology/) | Publication methodology figures and source manifest |
+| [`docs/`](docs/) | Project overview, provenance, generated-file guide, and exclusions |
 
-![Full50 baseline test RMSE](documentation/preview/full50_baseline_test_rmse.png)
+Start with [the project overview](docs/PROJECT_OVERVIEW.md), then use [the reproducibility guide](docs/REPRODUCIBILITY.md) to restore the private archive and [the repository map](docs/REPOSITORY_MAP.md) to identify the relevant workflow. The Markdown files render under GitHub’s **Preview** tab; the Python files remain under **Code**, matching the requested explanation/code separation.
 
-### Contrasting monitored sites
-
-Observed processed pH is shown against the HGB200 V2 and non-event GRU
-predictions. Blue shading marks regulatory low-pH weak-label windows. The four
-sites illustrate substantial differences in event persistence, flashiness and
-model fit.
-
-![Contrasting monitored-site event examples](documentation/preview/four_site_event_examples.png)
-
-### Hydrological metadata and prediction
-
-For the strict 200-site HGB experiment, adding the full metadata set reduced
-test RMSE from `0.017215` to `0.016119` and increased test R-squared from
-`0.7869` to `0.8132`. Compact V2 metadata retained almost all of this prediction
-benefit (`RMSE = 0.016159`, `R-squared = 0.8123`) with a smaller and more
-interpretable feature set.
-
-![HGB200 metadata prediction comparison](documentation/preview/hgb200_metadata_prediction.png)
-
-### Controlled non-event GRU training
-
-Excluding weak-label event target rows from GRU training improved test RMSE
-from `0.017130` to `0.016741` and increased low-pH enrichment in the negative
-5% residual tail from `2.52` to `4.87`.
-
-<p align="center">
-  <img src="documentation/preview/nonevent_low_tail_enrichment.png" alt="Non-event GRU low-pH negative-tail enrichment" width="720">
-</p>
-
-### Direction-specific residual behaviour
-
-Low-pH events were consistently enriched in negative residual tails, whereas
-high-pH positive-tail enrichment was weaker and model-dependent. This
-asymmetry is a substantive result rather than evidence that every large
-residual is an environmental event.
-
-![Signed residual-tail model summary](documentation/preview/signed_tail_model_summary.png)
-
-These event windows are incomplete regulatory weak labels. Prediction accuracy
-and event-tail enrichment are reported as separate outcome families.
-
-## Start here
-
-On a new computer, give Codex
-[the other-device start file](documentation/START_HERE_OTHER_DEVICE.md) first.
-It instructs Codex to inspect the machine and data and recommend the next valid
-step before any heavy processing.
-
-Read [the cross-device execution plan](documentation/ph_cross_device_full_pipeline_plan_v1.md)
-before running the scripts. It defines the cohort rules, leakage controls,
-chronological splits, metadata construction, HGB and sequence experiments,
-signed residual analysis, and acceptance checks.
-
-## Repository layout
-
-```text
-pipeline/                Baseline chain plus ten current stages
-config/                  Compact V2 metadata definition
-documentation/           Full cross-device execution and validation plan
-analysis_outputs/        Generated locally when scripts run; never versioned
-```
-
-Only the latest scripts that contributed to the current modelling conclusions
-are included. Superseded development versions, duplicated reruns, report
-generators, and figure-only utilities are excluded. The useful Full50 baseline
-ladder is retained separately under `pipeline/00_baseline/`.
-See [the pipeline index](pipeline/README.md) for the purpose and dependencies of
-each retained stage.
-
-## Local data layout
-
-Data and model artefacts are intentionally not included. On a working machine,
-provide at least:
-
-```text
-data/processed/
-data/reference/sites_register.json
-data/reference/regulatory_events.csv
-```
-
-Install dependencies in an isolated environment:
+## Environment
 
 ```powershell
-py -3.12 -m venv .venv
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-Run the lightweight inventory and cohort audit before any heavy model training.
-The present data supported approximately 201 sites with the exact common
-predictor schema, so the directly comparable primary experiment uses a strict
-200-site cohort. Any larger alias-normalised or reduced-predictor cohort must be
-reported separately.
+Install `requirements-geospatial.txt` for upstream/static spatial processing, or `requirements-reporting.txt` for Word/PDF reporting. Most workflows expect the private data archive to be restored as `data/` and selected evidence to be restored as `analysis_outputs/`; see the [reproducibility guide](docs/REPRODUCIBILITY.md) and [USB backup guide](docs/USB_BACKUP_GUIDE.md).
 
-## Data policy
+## Reproducibility boundary
 
-This private repository contains source code and documentation only. It does
-not contain raw/processed observations, registry records, event CSV files,
-predictions, model weights, figures, Word/PDF reports, or environment secrets.
+Configuration files and code are public-repository material. Data licences still apply independently. In particular, raw EA/NRW permit extracts and identifying permit-holder fields must not be published. Large outputs are described in [generated files](docs/GENERATED_FILES.md), while discarded experimental branches are recorded in [excluded experiments](docs/EXCLUDED_EXPERIMENTS.md) so negative results are not silently lost.

@@ -1,0 +1,51 @@
+{
+  "base_config": "config/common1000_recurrent_comparison_teacher_aligned_do_converted_v1.json",
+  "name": "common1000_lstm_nohistory_h0_rain_api_validation_v1",
+  "output_root": "analysis_outputs/ph_common1000_lstm_nohistory_h0_rain_api_validation_v1",
+  "horizon_hours": 0,
+  "include_target_history": false,
+  "sequence_length_hours": 48,
+  "recurrent_layers": 1,
+  "hidden_size": 64,
+  "film_hidden_size": 64,
+  "head_hidden_size": 32,
+  "dropout": 0.1,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.0001,
+  "learning_rate_scheduler_enabled": true,
+  "learning_rate_scheduler_factor": 0.5,
+  "learning_rate_scheduler_patience": 2,
+  "gradient_clip_norm": 1.0,
+  "early_stopping_patience": 4,
+  "early_stopping_min_delta": 0.0001,
+  "minimum_epochs": 3,
+  "models": [
+    {
+      "model_id": "LSTM_RAIN_H0",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    },
+    {
+      "model_id": "LSTM_RAIN_API_H0",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045",
+        "precip_api"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    }
+  ]
+}

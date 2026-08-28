@@ -1,0 +1,26 @@
+{
+  "name": "common1000_lowcost_deployment_summary_v1",
+  "output_root": "analysis_outputs/common1000_lowcost_deployment_summary_v1",
+  "targets": [
+    {
+      "target": "pH",
+      "unit": "pH",
+      "tolerance": 0.2,
+      "core_root": "analysis_outputs/ph_common1000_lstm_film_ph_sensor_ablation_v1/full",
+      "full_run_id": "ph_LSTM_FULL_SENSORS_H01",
+      "lowcost_run_id": "ph_LSTM_LOW_COST_H01",
+      "warmup_root": "analysis_outputs/ph_common1000_warmup_adaptation_lowcost_test_v1/full"
+    },
+    {
+      "target": "DO",
+      "unit": "mg/L",
+      "tolerance": 1.0,
+      "core_root": "analysis_outputs/do_common1000_lstm_film_sensor_ablation_mg_l_v1/full",
+      "full_run_id": "do_LSTM_FULL_SENSORS_H01",
+      "lowcost_run_id": "do_LSTM_LOW_COST_H01",
+      "warmup_root": "analysis_outputs/do_common1000_warmup_adaptation_lowcost_mg_l_test_v1/full"
+    }
+  ],
+  "bootstrap_replicates": 10000,
+  "random_seed": 42035
+}

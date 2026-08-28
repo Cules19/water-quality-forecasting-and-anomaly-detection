@@ -1,0 +1,21 @@
+{
+  "name": "common1000_lowcost_conformal_v1",
+  "output_root": "analysis_outputs/common1000_lowcost_conformal_v1",
+  "random_seed": 42035,
+  "calibration_sites_per_target": 45,
+  "nominal_coverages": [0.8, 0.9, 0.95],
+  "targets": [
+    {
+      "target": "pH",
+      "unit": "pH",
+      "operational_tolerance": 0.2,
+      "prediction_root": "analysis_outputs/ph_common1000_lstm_film_ph_sensor_ablation_v1/full/predictions_by_site/ph_LSTM_LOW_COST_H01/test"
+    },
+    {
+      "target": "DO",
+      "unit": "mg/L",
+      "operational_tolerance": 1.0,
+      "prediction_root": "analysis_outputs/do_common1000_lstm_film_sensor_ablation_mg_l_v1/full/predictions_by_site/do_LSTM_LOW_COST_H01/test"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "base_config": "config/common1000_rainfall_ablation_v1.json",
+  "name": "common1000_rainfall_ablation_all_v1",
+  "output_root": "analysis_outputs/ph_common1000_rainfall_ablation_all_v1",
+  "models": [
+    {
+      "model_id": "BASE_ALL",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680"
+      ],
+      "train_non_event": false
+    },
+    {
+      "model_id": "RAIN_ALL",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ],
+      "train_non_event": false
+    },
+    {
+      "model_id": "RAIN_API_ALL",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045",
+        "precip_api",
+        "precip_6h"
+      ],
+      "train_non_event": false
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "base_config": "config/common1000_rainfall_ablation_v1.json",
+  "name": "common1000_rainfall_ablation_all_do_converted_v1",
+  "merged_input_root": "analysis_outputs/ph_common1000_teacher_archive_features_do_converted_v1/full/hourly_ph_rainfall_by_site",
+  "primary_cohort_path": "analysis_outputs/ph_common1000_teacher_archive_features_do_converted_v1/full/reports/primary_archive_experiment_cohort.csv",
+  "output_root": "analysis_outputs/ph_common1000_rainfall_ablation_all_do_converted_v1",
+  "include_do_source_family_indicator": false,
+  "do_conversion": {
+    "enabled": true,
+    "method": "benson_krause_freshwater_1atm",
+    "applied_before_hourly_aggregation": true,
+    "supervisor_implementation": "Pollution_ID_teacher/models/lstm_film/data.py:_do_saturation_mgL"
+  },
+  "models": [
+    {
+      "model_id": "BASE_ALL",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680"
+      ],
+      "train_non_event": false
+    },
+    {
+      "model_id": "RAIN_ALL",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ],
+      "train_non_event": false
+    },
+    {
+      "model_id": "RAIN_API_ALL",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045",
+        "precip_api",
+        "precip_6h"
+      ],
+      "train_non_event": false
+    }
+  ]
+}

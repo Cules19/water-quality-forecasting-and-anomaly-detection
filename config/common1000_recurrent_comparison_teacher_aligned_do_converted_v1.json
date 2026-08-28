@@ -1,0 +1,114 @@
+{
+  "base_config": "config/common1000_rainfall_ablation_v1.json",
+  "name": "common1000_recurrent_comparison_teacher_aligned_do_converted_v1",
+  "merged_input_root": "analysis_outputs/ph_common1000_teacher_archive_features_do_converted_v1/full/hourly_ph_rainfall_by_site",
+  "primary_cohort_path": "analysis_outputs/ph_common1000_teacher_archive_features_do_converted_v1/full/reports/primary_archive_experiment_cohort.csv",
+  "output_root": "analysis_outputs/ph_common1000_recurrent_comparison_teacher_aligned_do_converted_v1",
+  "include_do_source_family_indicator": false,
+  "sequence_length_hours": 48,
+  "recurrent_layers": 1,
+  "hidden_size": 64,
+  "film_hidden_size": 64,
+  "head_hidden_size": 32,
+  "dropout": 0.1,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "learning_rate_scheduler_enabled": true,
+  "learning_rate_scheduler_factor": 0.5,
+  "learning_rate_scheduler_patience": 2,
+  "gradient_clip_norm": 1.0,
+  "early_stopping_patience": 4,
+  "early_stopping_min_delta": 0.0001,
+  "minimum_epochs": 3,
+  "smoke": {
+    "maximum_epochs": 2,
+    "train_window_cap_per_site": 300,
+    "validation_window_cap_per_site": 150,
+    "train_batch_size": 256,
+    "prediction_batch_size": 4096
+  },
+  "full": {
+    "maximum_epochs": 20,
+    "train_window_cap_per_site": 2500,
+    "validation_window_cap_per_site": 1000,
+    "train_batch_size": 512,
+    "prediction_batch_size": 8192
+  },
+  "do_conversion": {
+    "enabled": true,
+    "method": "benson_krause_freshwater_1atm",
+    "applied_before_hourly_aggregation": true,
+    "supervisor_implementation": "Pollution_ID_teacher/models/lstm_film/data.py:_do_saturation_mgL"
+  },
+  "teacher_alignment": {
+    "source_commit": "3cbeaf8271e92cd8c3e8e2c8c54b25eea40f8f59",
+    "source_model": "models/lstm_film",
+    "matched": [
+      "sequence_length_48h",
+      "hidden_size_64",
+      "recurrent_layers_1",
+      "dropout_0.1",
+      "film_hidden_size_64",
+      "target_history",
+      "horizon_1h",
+      "adamw",
+      "reduce_lr_on_plateau",
+      "gradient_clip_1.0"
+    ],
+    "intentional_differences": [
+      "leave_sites_out_split",
+      "no_site_embedding",
+      "no_coordinates",
+      "GRU_and_LSTM_share_one_site_agnostic_FiLM_wrapper",
+      "larger_data_budget_requires_batch_size_512"
+    ]
+  },
+  "models": [
+    {
+      "model_id": "GRU_BASE_ALL",
+      "recurrent_type": "gru",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680"
+      ],
+      "train_non_event": false
+    },
+    {
+      "model_id": "GRU_RAIN_ALL",
+      "recurrent_type": "gru",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ],
+      "train_non_event": false
+    },
+    {
+      "model_id": "LSTM_BASE_ALL",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680"
+      ],
+      "train_non_event": false
+    },
+    {
+      "model_id": "LSTM_RAIN_ALL",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ],
+      "train_non_event": false
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "name": "common1000_sequence_v1",
+  "processed_root": "analysis_outputs/ph_common1000_processed_v1",
+  "hgb_root": "analysis_outputs/ph_common1000_hgb_v1",
+  "output_root": "analysis_outputs/ph_common1000_sequence_v1",
+  "sequence_length_hours": 24,
+  "target_scaled": "00400",
+  "target_native": "00400_native",
+  "target_inverse_multiplier": 14.0,
+  "dynamic_features": [
+    "00010",
+    "00095",
+    "00300",
+    "63680",
+    "hour",
+    "month",
+    "day_of_year",
+    "sin_hour",
+    "cos_hour",
+    "sin_day",
+    "cos_day"
+  ],
+  "train_window_cap_per_site": 5000,
+  "early_stop_validation_cap_per_site": 500,
+  "train_batch_size": 8192,
+  "prediction_batch_size": 16384,
+  "scaler_batch_windows": 25000,
+  "maximum_epochs": 8,
+  "early_stopping_patience": 2,
+  "learning_rate": 0.001,
+  "weight_decay": 0.00001,
+  "hidden_size": 64,
+  "recurrent_layers": 1,
+  "site_embedding_size": 16,
+  "mlp_hidden_size": 64,
+  "random_seed": 42,
+  "models": [
+    {"model_id": "GRU_S0", "recurrent_type": "gru", "metadata_used": false},
+    {"model_id": "GRU_S1", "recurrent_type": "gru", "metadata_used": true},
+    {"model_id": "LSTM_S1", "recurrent_type": "lstm", "metadata_used": true}
+  ],
+  "residual_tail_fractions": [0.01, 0.05, 0.1],
+  "forbidden_predictors": [
+    "00400",
+    "00400_native",
+    "in_ph_event",
+    "ph_event_label",
+    "ph_event_direction",
+    "event_id",
+    "residual",
+    "prediction"
+  ]
+}

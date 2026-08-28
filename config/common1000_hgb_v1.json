@@ -1,0 +1,55 @@
+{
+  "name": "common1000_hgb_v1",
+  "processed_root": "analysis_outputs/ph_common1000_processed_v1",
+  "cohort_manifest": "analysis_outputs/ph_common1000_processed_v1/reports/preferred_unique_physical_sites.csv",
+  "registry_path": "data/reference/sites_register.json",
+  "output_root": "analysis_outputs/ph_common1000_hgb_v1",
+  "expected_full_sites": 1009,
+  "smoke_site_count": 50,
+  "train_rows_per_site_cap": 10000,
+  "prediction_batch_rows": 250000,
+  "random_seed": 42,
+  "target_scaled": "00400",
+  "target_native": "00400_native",
+  "target_inverse_multiplier": 14.0,
+  "base_features": [
+    "00010",
+    "00095",
+    "00300",
+    "63680",
+    "hour",
+    "month",
+    "day_of_year",
+    "sin_hour",
+    "cos_hour",
+    "sin_day",
+    "cos_day"
+  ],
+  "models": {
+    "M0": "four sensors plus time",
+    "M1": "M0 plus safe static site and catchment metadata"
+  },
+  "hgb_parameters": {
+    "loss": "squared_error",
+    "learning_rate": 0.05,
+    "max_iter": 200,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 20,
+    "l2_regularization": 0.0,
+    "early_stopping": false,
+    "random_state": 42
+  },
+  "residual_tail_fractions": [0.01, 0.05, 0.1],
+  "forbidden_feature_markers": [
+    "00400",
+    "ph",
+    "target",
+    "label",
+    "event",
+    "residual",
+    "prediction",
+    "future",
+    "test",
+    "validation"
+  ]
+}

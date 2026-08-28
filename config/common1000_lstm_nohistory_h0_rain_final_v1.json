@@ -1,0 +1,20 @@
+{
+  "base_config": "config/common1000_lstm_nohistory_h0_rain_api_validation_v1.json",
+  "name": "common1000_lstm_nohistory_h0_rain_final_v1",
+  "output_root": "analysis_outputs/ph_common1000_lstm_nohistory_h0_rain_final_v1",
+  "models": [
+    {
+      "model_id": "LSTM_RAIN_H0",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_00300",
+        "x_63680",
+        "rain_00045"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    }
+  ]
+}

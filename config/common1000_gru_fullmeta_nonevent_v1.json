@@ -1,0 +1,10 @@
+{
+  "name": "common1000_gru_fullmeta_nonevent_v1",
+  "base_sequence_config": "config/common1000_sequence_v1.json",
+  "sequence_input": "analysis_outputs/ph_common1000_sequence_v1/full",
+  "baseline_test_prediction": "analysis_outputs/ph_common1000_sequence_v1/full/predictions/prediction_test_GRU_S1.parquet",
+  "baseline_val_prediction": "analysis_outputs/ph_common1000_sequence_v1/full/predictions/prediction_val_GRU_S1.parquet",
+  "output_root": "analysis_outputs/ph_common1000_gru_fullmeta_nonevent_v1",
+  "model_id": "GRU_S1_N1009_NONEVENT",
+  "random_seed": 42
+}

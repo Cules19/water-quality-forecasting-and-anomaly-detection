@@ -1,0 +1,32 @@
+{
+  "base_config": "config/common1000_lstm_film_ph_sensor_ablation_v1.json",
+  "name": "h0_final_ph_h01_cheap3_validation_v1",
+  "output_root": "analysis_outputs/h0_site_transfer_warmup_final_audit_v1/checkpoints/ph_h01_input_ablation_v1",
+  "models": [
+    {
+      "model_id": "CHEAP3",
+      "run_id": "ph_LSTM_CHEAP3_H01",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_63680"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    },
+    {
+      "model_id": "CHEAP3_RAIN",
+      "run_id": "ph_LSTM_LOW_COST_H01",
+      "recurrent_type": "lstm",
+      "feature_names": [
+        "x_00010",
+        "x_00095",
+        "x_63680",
+        "rain_00045"
+      ],
+      "target_history": false,
+      "train_non_event": false
+    }
+  ]
+}

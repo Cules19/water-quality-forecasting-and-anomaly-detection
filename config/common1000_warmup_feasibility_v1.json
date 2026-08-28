@@ -1,0 +1,60 @@
+{
+  "name": "common1000_warmup_feasibility_v1",
+  "primary_cohort_path": "analysis_outputs/ph_common1000_teacher_archive_features_do_converted_v1/full/reports/primary_archive_experiment_cohort.csv",
+  "common_key_manifest_path": "analysis_outputs/ph_common1000_lstm_film_final_rain_ablation_teacher_aligned_v1/full/reports/common_key_manifest.csv",
+  "reference_prediction_root": "analysis_outputs/ph_common1000_lstm_film_final_rain_ablation_teacher_aligned_v1/full/predictions_by_site/ph_LSTM_RAIN_FINAL_H01",
+  "output_root": "analysis_outputs/ph_common1000_warmup_feasibility_v1",
+  "evaluation_splits": [
+    "validation",
+    "test"
+  ],
+  "expected_sites": {
+    "validation": 137,
+    "test": 135
+  },
+  "warmup_periods": [
+    {
+      "label": "2_weeks",
+      "days": 14
+    },
+    {
+      "label": "1_month",
+      "months": 1
+    },
+    {
+      "label": "2_months",
+      "months": 2
+    },
+    {
+      "label": "3_months",
+      "months": 3
+    },
+    {
+      "label": "6_months",
+      "months": 6
+    },
+    {
+      "label": "9_months",
+      "months": 9
+    },
+    {
+      "label": "12_months",
+      "months": 12
+    }
+  ],
+  "fixed_evaluation_after": {
+    "months": 12
+  },
+  "immediate_evaluation_days": 30,
+  "minimum_adaptation_targets": 168,
+  "minimum_adaptation_target_coverage": 0.2,
+  "minimum_evaluation_targets": 168,
+  "threshold_sensitivity_targets": [
+    24,
+    72,
+    168
+  ],
+  "sequence_length_hours": 48,
+  "forecast_horizon_hours": 1,
+  "timezone_assumption": "UTC"
+}
